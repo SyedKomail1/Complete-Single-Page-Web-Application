@@ -5,6 +5,7 @@ import { Grid } from "@material-ui/core";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import { makeStyles } from "@material-ui/core/styles";
+import productService from "./services/ProductsService";
 
 const useStyles = makeStyles((theme) => ({
   addBtn: {
@@ -19,10 +20,10 @@ const Products = (props) => {
   //console.log("Inside Product component");
   const classes = useStyles();
   const getData = () => {
-    axios
-      .get("http://localhost:4000/api/products")
-      .then((res) => {
-        setProducts(res.data);
+    productService
+      .getProducts()
+      .then((data) => {
+        setProducts(data);
       })
       .catch((err) => {
         console.log(err);
@@ -50,7 +51,7 @@ const Products = (props) => {
       ) : (
         <Grid container spacing={3}>
           {products.map((product, index) => (
-            <SingleProduct key={index} product={product} />
+            <SingleProduct key={index} product={product} onDelete={getData} />
           ))}
         </Grid>
       )}

@@ -3,15 +3,22 @@ import { Button, Grid, TextField } from "@material-ui/core";
 import axios from "axios";
 import productService from "./services/ProductsService";
 
-const NewProduct = (props) => {
+const UpdateProduct = (props) => {
   const [name, setName] = React.useState("");
-  const [price, setPrice] = React.useState("");
+  const [price, setPrice] = React.useState(0);
+  const id = props.match.params.id;
+  React.useEffect(() => {
+    productService.getSingleProduct(id).then((data) => {
+      setName(data.name);
+      setPrice(data.price);
+    });
+  }, []);
   return (
     <div>
       <Grid container spacing={3}>
         <Grid item xs></Grid>
         <Grid item xs={6}>
-          <h1> Add New Product </h1>
+          <h1> Update Product </h1>
           <TextField
             label="name"
             fullWidth
@@ -40,7 +47,7 @@ const NewProduct = (props) => {
             onClick={(e) => {
               console.log("Send API Call to Add");
               productService
-                .addProduct({ name, price })
+                .updateProduct(id, { name, price })
                 .then((data) => {
                   console.log(data);
                   props.history.push("/products");
@@ -50,7 +57,7 @@ const NewProduct = (props) => {
                 });
             }}
           >
-            Add Product
+            Update
           </Button>
         </Grid>
         <Grid item xs></Grid>
@@ -59,4 +66,4 @@ const NewProduct = (props) => {
   );
 };
 
-export default NewProduct;
+export default UpdateProduct;

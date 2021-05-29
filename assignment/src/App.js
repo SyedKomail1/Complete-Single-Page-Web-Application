@@ -12,6 +12,7 @@ import Contactus from "./component/Contactus";
 import Notfound from "./component/Notfound";
 import Login from "./component/Login";
 import NewProduct from "./component/NewProduct";
+import UpdateProduct from "./component/UpdateProduct";
 function App() {
   return (
     <Router>
@@ -20,6 +21,7 @@ function App() {
         <div style={{ padding: "5px" }}>
           <Switch>
             <Route path="/products/new" component={NewProduct} />
+            <Route path="/products/update/:id" component={UpdateProduct} />
             <Route path="/products" component={Products} />
             <Route path="/Contact-us" component={Contactus} />
             <Route path="/notfound" component={Notfound} />
