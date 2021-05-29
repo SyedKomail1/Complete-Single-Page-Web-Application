@@ -11,6 +11,7 @@ import Products from "./component/products";
 import Contactus from "./component/Contactus";
 import Notfound from "./component/Notfound";
 import Login from "./component/Login";
+import NewProduct from "./component/NewProduct";
 function App() {
   return (
     <Router>
@@ -18,6 +19,7 @@ function App() {
         <TopMenu />
         <div style={{ padding: "5px" }}>
           <Switch>
+            <Route path="/products/new" component={NewProduct} />
             <Route path="/products" component={Products} />
             <Route path="/Contact-us" component={Contactus} />
             <Route path="/notfound" component={Notfound} />

@@ -1,16 +1,20 @@
 import React from "react";
 import SingleProduct from "./SingleProduct";
 import axios from "axios";
-import { Grid, Link } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
-  addBtn: {},
+  addBtn: {
+    position: "absolute",
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
+  },
 }));
 
-const Products = () => {
+const Products = (props) => {
   const [products, setProducts] = React.useState([]);
   //console.log("Inside Product component");
   const classes = useStyles();
@@ -25,10 +29,19 @@ const Products = () => {
       });
   };
   React.useEffect(getData, []);
+  const handleNewProductClick = () => {
+    console.log(props);
+    props.history.push("/products/new");
+  };
   return (
     <div>
       <h1>Products</h1>
-      <Fab color="primary" aria-label="add" className={classes.addBtn}>
+      <Fab
+        color="primary"
+        aria-label="add"
+        className={classes.addBtn}
+        onClick={handleNewProductClick}
+      >
         <AddIcon />
       </Fab>
 
