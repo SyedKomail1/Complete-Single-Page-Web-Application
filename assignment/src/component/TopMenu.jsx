@@ -1,54 +1,70 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Button from "@material-ui/core/Button";
-import { AppBar, Toolbar, Typography } from "@material-ui/core";
+
 import { makeStyles } from "@material-ui/core/styles";
+import { AppBar, Toolbar, Typography, Button } from "@material-ui/core";
+import userService from "./services/UserService";
+
 const useStyles = makeStyles((theme) => ({
-  Link: {
+  link: {
     color: "white",
-    padding: "7px",
+    paddingRight: "1rem",
   },
 }));
+
 const TopMenu = () => {
   const classes = useStyles();
   return (
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6">
-          <Link to="/" className={classes.Link}>
+          <Link to="/" className={classes.link}>
             Home
           </Link>
         </Typography>
         <Typography variant="h6">
-          <Link to="/products" className={classes.Link}>
-            {" "}
-            Products{" "}
+          <Link to="/products" className={classes.link}>
+            Products
           </Link>
         </Typography>
         <Typography variant="h6">
-          <Link to="/Contact-us" className={classes.Link}>
-            {" "}
-            Contactus{" "}
+          <Link to="/products/new" className={classes.link}>
+            New Product
           </Link>
         </Typography>
         <Typography variant="h6">
-          <Link to="/products/new" className={classes.Link}>
-            {" "}
-            New Product{" "}
+          <Link to="/contact-us" className={classes.link}>
+            Contact Us
           </Link>
         </Typography>
+        {!userService.isLoggedIn() ? (
+          <>
+            <Typography variant="h6">
+              <Link to="/login" className={classes.link}>
+                Login
+              </Link>
+            </Typography>
+            <Typography variant="h6">
+              <Link to="/register" className={classes.link}>
+                Register
+              </Link>
+            </Typography>
+          </>
+        ) : (
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={(e) => {
+              userService.logout();
+              window.location.reload();
+            }}
+          >
+            LogOut {userService.getLoggedInUser().name}
+          </Button>
+        )}
       </Toolbar>
     </AppBar>
   );
 };
-/*<div>
-        <ul>
-        <li style={{display: "inline", padding: "5px"}}><Link to ="/"> Home </Link> </li>
-        <li style={{display: "inline", padding: "5px"}} ><Link to="/products"> Products </Link> </li>
-        <li style={{display: "inline", padding: "5px"}}><Link to ="/contact-us"> Contactus </Link> </li>
-        <li style={{display: "inline", padding: "5px"}}><Link to ="/Login"> Login  </Link> </li>
-        <li style={{display: "inline", padding: "5px"}}> <button variant="contained" color="secondary"> Signup </button> </li>
-            
-        </ul>
-    </div> */
+
 export default TopMenu;

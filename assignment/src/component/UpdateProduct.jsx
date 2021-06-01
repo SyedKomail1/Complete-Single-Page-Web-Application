@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Grid, TextField } from "@material-ui/core";
-import axios from "axios";
+//import axios from "axios";
 import productService from "./services/ProductsService";
 
 const UpdateProduct = (props) => {

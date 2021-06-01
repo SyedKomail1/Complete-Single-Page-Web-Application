@@ -6,6 +6,7 @@ import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import { makeStyles } from "@material-ui/core/styles";
 import productService from "./services/ProductsService";
+import userService from "./services/UserService";
 
 const useStyles = makeStyles((theme) => ({
   addBtn: {
@@ -17,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Products = (props) => {
   const [products, setProducts] = React.useState([]);
-  //console.log("Inside Product component");
   const classes = useStyles();
   const getData = () => {
     productService
@@ -29,7 +29,9 @@ const Products = (props) => {
         console.log(err);
       });
   };
+  // getData();
   React.useEffect(getData, []);
+  // console.log("Inside Products Component");
   const handleNewProductClick = () => {
     console.log(props);
     props.history.push("/products/new");
@@ -37,17 +39,19 @@ const Products = (props) => {
   return (
     <div>
       <h1>Products</h1>
-      <Fab
-        color="primary"
-        aria-label="add"
-        className={classes.addBtn}
-        onClick={handleNewProductClick}
-      >
-        <AddIcon />
-      </Fab>
+      {userService.isLoggedIn() && (
+        <Fab
+          color="primary"
+          aria-label="add"
+          className={classes.addBtn}
+          onClick={handleNewProductClick}
+        >
+          <AddIcon />
+        </Fab>
+      )}
 
       {products.length == 0 ? (
-        <p> There are no products</p>
+        <p>There are no products</p>
       ) : (
         <Grid container spacing={3}>
           {products.map((product, index) => (
