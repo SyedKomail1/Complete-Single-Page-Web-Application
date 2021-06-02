@@ -2,12 +2,13 @@ import React from "react";
 import { Button, Grid, TextField } from "@material-ui/core";
 import axios from "axios";
 import productService from "./services/ProductsService";
+import Auth from "./auth/Auth";
 
 const NewProduct = (props) => {
   const [name, setName] = React.useState("");
   const [price, setPrice] = React.useState("");
   return (
-    <div>
+    <Auth>
       <Grid container spacing={3}>
         <Grid item xs></Grid>
         <Grid item xs={6}>
@@ -55,7 +56,7 @@ const NewProduct = (props) => {
         </Grid>
         <Grid item xs></Grid>
       </Grid>
-    </div>
+    </Auth>
   );
 };
 

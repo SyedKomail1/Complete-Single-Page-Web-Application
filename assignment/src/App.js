@@ -29,7 +29,7 @@ function App() {
             <Route path="/register" component={Register} />
             <Route path="/products/new" component={NewProduct} />
             <Route path="/products/update/:id" component={UpdateProduct} />
-            <Route path="/products" component={Products} />
+            <Route path="/products/:page?" component={Products} />
             <Route path="/Contact-us" component={Contactus} />
             <Route path="/notfound" component={Notfound} />
             <Route path="/login" component={Login} />
